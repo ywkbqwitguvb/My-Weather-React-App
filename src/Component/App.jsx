@@ -1,15 +1,20 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState } from 'react';
+import Search from './Search';
+import WeatherDisplay from './WeatherDisplay';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+function App() {
+  const [weatherData, setWeatherData] = useState(null);
 
-reportWebVitals();
+  const handleWeatherData = (data) => {
+    setWeatherData(data);
+  };
+
+  return (
+    <div className="App">
+      <Search onWeatherData={handleWeatherData} />
+      <WeatherDisplay weatherData={weatherData} />
+    </div>
+  );
+}
+
+export default App;

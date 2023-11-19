@@ -1,12 +1,23 @@
-import React from 'react';
-import Search from './Component/Seach';
+import React, { useState } from 'react';
+import Search from './Component/Search';
 import WeatherDisplay from './Component/WeatherDisplay';
 
 function App() {
+  const [weatherData, setWeatherData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
+
+  const handleWeatherData = (data) => {
+    setWeatherData(data);
+  };
+
+  const handleForecastData = (data) => {
+    setForecastData(data);
+  };
+
   return (
     <div className="App">
-      <Search />
-      <WeatherDisplay />
+      <Search onWeatherData={handleWeatherData} onForecastData={handleForecastData} />
+      <WeatherDisplay weatherData={weatherData} forecastData={forecastData} />
     </div>
   );
 }
