@@ -1,23 +1,16 @@
 import React, { useState } from 'react';
 import Search from './Component/Search';
 import WeatherDisplay from './Component/WeatherDisplay';
+import './App.css';
 
 function App() {
   const [weatherData, setWeatherData] = useState(null);
-  const [forecastData, setForecastData] = useState(null);
-
-  const handleWeatherData = (data) => {
-    setWeatherData(data);
-  };
-
-  const handleForecastData = (data) => {
-    setForecastData(data);
-  };
 
   return (
     <div className="App">
-      <Search onWeatherData={handleWeatherData} onForecastData={handleForecastData} />
-      <WeatherDisplay weatherData={weatherData} forecastData={forecastData} />
+      <h1>Weather App</h1>
+      <Search setWeatherData={setWeatherData} />
+      <WeatherDisplay weatherData={weatherData} />
     </div>
   );
 }

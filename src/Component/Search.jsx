@@ -1,50 +1,51 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Search = ({ onWeatherData, onForecastData }) => {
+const Search = ({ setWeatherData }) => {
   const [city, setCity] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
 
   const handleSearch = async () => {
     try {
-      const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY';
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY`
+      );
       
-      const [weatherResponse, forecastResponse] = await Promise.all([
-        axios.get(weatherUrl),
-        axios.get(forecastUrl),
-      ]);
+      const { main } = response.data;
+      setWeatherData({
+        temperature: main.temp,
+        description: response.data.weather[0].description,
+        city: response.data.name,
+      });
 
-      // Handle successful API requests
-      onWeatherData(weatherResponse.data);
-      onForecastData(forecastResponse.data);
-      setError(null);
+      setError('');
     } catch (error) {
-      // Handle failed API requests
-      setError('Error fetching weather data. Please try again.');
-      console.error(error);
+      setError('City not found. Please try again.');
+      setWeatherData(null);
     }
   };
 
   return (
-    <div className="search">
-      <form onSubmit={(e) => { e.preventDefault(); handleSearch(); }}>
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Enter city name"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-          />
-          <div className="input-group-append">
-            <button className="btn btn-primary" type="submit">Search</button>
-          </div>
-        </div>
-      </form>
+    <div className="search-container">
+      <input
+        type="text"
+        placeholder="Enter city name"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
+      {error && <p className="error-message">{error}</p>}
+
+      <input
+        type="text"
+        placeholder="Enter city name"
+        value={city}
+        onChange={(e) => setCity(e.target.value)}
+      />
+      <button onClick={handleSearch}>Search</button>
       {error && <p className="error-message">{error}</p>}
     </div>
+    
   );
 };
 

@@ -1,27 +1,67 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import '@fortawesome/fontawesome-free/css/all.css';
-
-body {
-  background-color: #f8f9fa;
+.App {
+  text-align: center;
+  padding-top: 100px;
+  background-color: aqua;
 }
 
-.weather-display {
+.search-container {
+  margin: 20px;
+  
+}
+
+.weather-container {
   margin: 20px;
 }
 
-.forecast-item {
-  margin: 10px;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.error-message {
-  color: #dc3545;
-}
-
-.icon {
-  font-size: 2rem;
+input {
   margin-right: 10px;
 }
+
+button {
+  cursor: pointer;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.search-container {
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 10px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+
+
+
