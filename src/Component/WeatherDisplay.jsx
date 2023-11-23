@@ -11,6 +11,18 @@ const WeatherDisplay = ({ weatherData, forecastData }) => {
     return isCelsius ? (kelvin - 273.15).toFixed(1) : ((kelvin * 9) / 5 - 459.67).toFixed(1);
   };
 
+  const renderForecastItem = (item) => (
+    <div key={item.dt} className="col-md-2 forecast-item">
+      <p>{new Date(item.dt * 1000).toLocaleDateString()}</p>
+      <p>
+        Temp: {convertTemperature(item.main.temp)}{' '}
+        {isCelsius ? '°C' : '°F'}
+      </p>
+      <p>Weather: {item.weather[0].description}</p>
+      <i className={`icon owf owf-${item.weather[0].id} owf-2x`}></i>
+    </div>
+  );
+
   return (
     <div className="weather-display">
       {weatherData && (
@@ -30,17 +42,7 @@ const WeatherDisplay = ({ weatherData, forecastData }) => {
         <div>
           <h3>5-Day Forecast:</h3>
           <div className="row">
-            {forecastData.list.slice(0, 5).map((item) => (
-              <div key={item.dt} className="col-md-2 forecast-item">
-                <p>{new Date(item.dt * 1000).toLocaleDateString()}</p>
-                <p>
-                  Temp: {convertTemperature(item.main.temp)}{' '}
-                  {isCelsius ? '°C' : '°F'}
-                </p>
-                <p>Weather: {item.weather[0].description}</p>
-                <i className={`icon owf owf-${item.weather[0].id} owf-2x`}></i>
-              </div>
-            ))}
+            {forecastData.list.slice(0, 5).map(renderForecastItem)}
           </div>
         </div>
       )}
